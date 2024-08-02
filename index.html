@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Gift for You</title>
+    <link rel="stylesheet" href="../index/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Happy Birthday, Asmae!🎉🎉</h1>
+        <div class="message">
+            I have a special surprise for you.
+        </div>
+        <button class="button" onclick="revealStory()">Start the Journey</button>
+        
+        <div id="story" class="hidden">
+            <div class="message">
+                Once upon a time, there was a girl with a wolfcut we met in class and got along with each other
+            </div>
+            
+            <div class="message">
+                And through every moment, we laughed and made so much memoires...
+            </div>
+            <button class="button" onclick="revealQuiz()">Take the Quiz</button>
+        </div>
+        
+        <div id="quiz" class="hidden">
+            <div class="quiz-container" id="quiz-container">
+                
+            </div>
+            <button class="button" onclick="revealGift()">Reveal Your Gift</button>
+        </div>
+        
+        <div id="gift" class="hidden">
+            <img style="height: 250px;" src="../pics/Untitled design.png" alt="Special Moment" class="gift-image">
+            <div class="message">
+                🎁 Happy Birthday! 🎁
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function revealStory() {
+            document.getElementById('story').classList.remove('hidden');
+        }
+
+        function revealQuiz() {
+            document.getElementById('quiz').classList.remove('hidden');
+            loadQuiz();
+        }
+
+        function revealGift() {
+            document.getElementById('gift').classList.remove('hidden');
+        }
+
+        const questions = [
+            { question: "What is my favorite color?", options: ["Red", "Blue", "Green", "Yellow"], answer: "Blue" },
+            { question: "akher mara tgoli sabha ?", options: ["skrana ", "3yana", "mbow9a", "neasa"], answer: "mbow9a" },
+            { question: "What is my dream vacation destination?", options: ["france", "spain", "turkey", "italy"], answer: "italy" },
+            
+        ];
+
+        function loadQuiz() {
+            const quizContainer = document.getElementById('quiz-container');
+            quizContainer.innerHTML = '';
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.classList.add('question');
+                questionDiv.innerHTML = `<p>${q.question}</p>`;
+                
+                q.options.forEach(option => {
+                    const optionButton = document.createElement('div');
+                    optionButton.classList.add('option');
+                    optionButton.innerText = option;
+                    optionButton.onclick = () => selectOption(index, optionButton, option, q.answer);
+                    questionDiv.appendChild(optionButton);
+                });
+
+                quizContainer.appendChild(questionDiv);
+            });
+        }
+
+        function selectOption(questionIndex, optionButton, selectedOption, correctAnswer) {
+            if (selectedOption === correctAnswer) {
+                optionButton.style.backgroundColor = 'green';
+            } else {
+                optionButton.style.backgroundColor = 'red';
+            }
+            optionButton.style.color = 'white';
+            const options = optionButton.parentElement.querySelectorAll('.option');
+            options.forEach(option => option.onclick = null); // Disable further clicks
+        }
+    </script>
+</body>
+</html>
